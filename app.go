@@ -14,6 +14,8 @@ func main() {
 	e := echo.New()
   	e.Use(middleware.Logger())
 
+	e.GET("/", handlers.GetWelcome())
+
 	e.GET("/domains", handlers.GetDomains(db))
 	e.POST("/domains", handlers.PutDomains(db))
 	e.PUT("/domains", handlers.EditDomain(db))
@@ -26,5 +28,3 @@ func main() {
 
 	e.Logger.Fatal(e.Start(":14045"))
 }
-
-
