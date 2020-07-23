@@ -19,6 +19,11 @@ func main() {
 	e.PUT("/domains", handlers.EditDomain(db))
 	e.DELETE("/domains/:id", handlers.DeleteDomain(db))
 
+	e.GET("/records", handlers.GetRecords(db))
+	e.POST("/records", handlers.PutRecords(db))
+	e.PUT("/records", handlers.EditRecords(db))
+	e.DELETE("/records/:id", handlers.DeleteRecords(db))
+
 	e.Logger.Fatal(e.Start(":14045"))
 }
 
