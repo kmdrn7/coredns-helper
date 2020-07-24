@@ -18,15 +18,15 @@ func InitDB(filepath string) *sql.DB {
 
 func migrate(db *sql.DB) {
 	sql := `
-    CREATE TABLE IF NOT EXISTS domains(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-				name VARCHAR(255) NOT NULL,
-				master VARCHAR(128),
-				last_check BIGINT,
-				type VARCHAR(6) NOT NULL,
-				notified_serial BIGINT,
-				account VARCHAR(40)
-    );
+		CREATE TABLE IF NOT EXISTS domains(
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+					name VARCHAR(255) NOT NULL,
+					master VARCHAR(128),
+					last_check BIGINT,
+					type VARCHAR(6) NOT NULL,
+					notified_serial BIGINT,
+					account VARCHAR(40)
+		);
 		CREATE TABLE IF NOT EXISTS records(
 				id INTEGER PRIMARY KEY AUTOINCREMENT,
 				domain_id BIGINT,
@@ -35,7 +35,7 @@ func migrate(db *sql.DB) {
 				content VARCHAR(600),
 				ttl INTEGER,
 				prio INTEGER,
-				chang_data INTEGER,
+				chang_date INTEGER,
 				disabled BOOL
 		);
 	`
