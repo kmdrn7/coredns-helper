@@ -20,6 +20,17 @@ type RecordCollection struct {
 	Records []Record `json:"data"`
 }
 
+func CountRecords(db *sql.DB) (count int) {
+	tmp := 0;
+	sql := "SELECT COUNT(id) FROM records"
+	row := db.QueryRow(sql)
+	err := row.Scan(&tmp)
+	if err != nil {
+		panic(err)
+	}
+	return tmp
+}
+
 func GetRecords(db *sql.DB) RecordCollection {
 	sql := "SELECT * FROM records"
 	rows, err := db.Query(sql)

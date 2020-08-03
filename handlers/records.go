@@ -17,20 +17,26 @@ func GetRecords(db *sql.DB) echo.HandlerFunc {
 
 func PutRecords(db *sql.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var record models.Record
-		c.Bind(&record)
-		if (record.Name == "" || record.Type == "" || record.Content == ""){
-			return c.JSON(http.StatusBadRequest, H{
-				"message": "Ada data yang kosong",
-			})
-		}
-		id, err := models.PutRecords(db, record.DomainID, record.Name, record.Type, record.Content, record.Ttl, record.Disabled)
-		if err == nil {
-			return c.JSON(http.StatusCreated, H{
-				"created": id,
-			})
+		if models.CountRecords(db) == 0 {
+			var record models.Record
+			c.Bind(&record)
+			if (record.Name == "" || record.Type == "" || record.Content == ""){
+				return c.JSON(http.StatusBadRequest, H{
+					"message": "Ada data yang kosong",
+				})
+			}
+			id, err := models.PutRecords(db, record.DomainID, record.Name, record.Type, record.Content, record.Ttl, record.Disabled)
+			if err == nil {
+				return c.JSON(http.StatusCreated, H{
+					"created": id,
+				})
+			} else {
+				return err
+			}
 		} else {
-			return err
+			return c.JSON(http.StatusCreated, H{
+				"message": "Records sudah ada",
+			})
 		}
 	}
 }
