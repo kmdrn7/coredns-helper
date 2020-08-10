@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo the greeting's time
-        run: go build app.go
+        run: go build
