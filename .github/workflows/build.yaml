@@ -1,0 +1,11 @@
+name: Build coredns-helper app
+on: [push]
+jobs:
+  build:
+    # Job name is Greeting
+    name: Build app
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo the greeting's time
+        run: go build app.go
